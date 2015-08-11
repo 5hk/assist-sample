@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>CodeMirror: Tern Demo</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+    <!-- <link rel="stylesheet" href="lib/codemirror/addon/dialog/dialog.css"> -->
+    <link rel="stylesheet" href="lib/codemirror/addon/hint/show-hint.css">
+    <!-- <link rel="stylesheet" href="lib/codemirror/addon/tern/tern.css"> -->
+    <link rel="stylesheet" href="lib/codemirror/theme/monokai.css">
+
+    <link rel="stylesheet" href="lib/codemirror-extension/addon/hint/tern/tern-extension.css">
+    <!-- <link rel="stylesheet" href="lib/codemirror-extension/addon/hint/show-context-info.css"> -->
+    <link rel="stylesheet" href="lib/codemirror-extension/addon/hint/show-hint-eclipse.css">
+    <link rel="stylesheet" href="lib/codemirror-extension/addon/hint/templates-hint.css">
+    <style>
+    .CodeMirror {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        height: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <textarea id="code" name="code" style="display:none"></textarea>
+
+    <!-- CodeMirror -->
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+    <script src="lib/codemirror/mode/javascript/javascript.js"></script>
+    <script src="lib/codemirror/addon/selection/active-line.js"></script>
+    <script src="lib/codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="lib/codemirror/addon/edit/closebrackets.js"></script>
+    <script src="lib/codemirror/addon/hint/show-hint.js"></script>
+    <script src="lib/codemirror/addon/hint/show-hint.js"></script>
+
+    <!-- Official CodeMirror Tern Addon -->
+    <script src="lib/codemirror/addon/tern/tern.js"></script>
+
+    <!-- Tern JS -->
+    <script src="//ternjs.net/node_modules/acorn/dist/acorn.js"></script>
+    <script src="//ternjs.net/node_modules/acorn/dist/acorn_loose.js"></script>
+    <script src="//ternjs.net/node_modules/acorn/dist/walk.js"></script>
+    <script src="//ternjs.net/doc/demo/polyfill.js"></script>
+    <script src="//ternjs.net/lib/signal.js"></script>
+    <script src="//ternjs.net/lib/tern.js"></script>
+    <script src="//ternjs.net/lib/def.js"></script>
+    <script src="//ternjs.net/lib/comment.js"></script>
+    <script src="//ternjs.net/lib/infer.js"></script>
+    <script src="//ternjs.net/plugin/doc_comment.js"></script>
+
+    <!-- CodeMirror Extension -->
+    <script src="lib/codemirror-extension/addon/hint/tern/tern-extension.js"></script>
+    <script src="lib/codemirror-extension/addon/hint/show-context-info.js"></script>
+    <script src="lib/codemirror-extension/addon/hint/templates-hint.js"></script>
+
+    <!-- Require JS -->
+    <script data-main="app.js" src="lib/requirejs/require.js"></script>
+</body>
+
+</html>

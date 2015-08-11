@@ -1,0 +1,450 @@
+{
+    "!name": "service",
+
+    "$ThingGroupKey$": "string",
+    "$ThingId$": "string",
+    "$MessageCode$": "string",
+    "$MessageTime$": "string",
+    "$SiteId$": "string",
+    "Logger": {
+        "!type:": "fn()",
+        "debug": {
+            "!type": "fn(text: string)",
+            "!doc": "Outputs an error message to the Web Console."
+        },
+        "info": {
+            "!type": "fn(text: string)",
+            "!doc": "Outputs an informational message to the Web Console."
+        }
+    },
+
+    "Avg": {
+        "!type": "fn(?: List) -> double",
+        "!doc": "입력받은 데이터들의 평균값을 구하는 함수. 데이터는 반드시 숫자인 문자형이어야 한다."
+    },
+    "Sum": {
+        "!type": "fn(?: List) -> double",
+        "!doc": "입력받은 데이터들의 합을 구하는 함수. 데이터는 반드시 숫자인 문자형이어야 한다."
+    },
+    "Min": {
+        "!type": "fn(?: List) -> double",
+        "!doc": "입력받은 데이터들의 최소값을 구하는 함수. 데이터는 반드시 숫자인 문자형이어야 한다."
+    },
+    "Max": {
+        "!type": "fn(?: List) -> double",
+        "!doc": "입력받은 데이터들의 최대값을 구하는 함수. 데이터는 반드시 숫자인 문자형이어야 한다."
+    },
+    "Count": {
+        "!type": "fn(?: List) -> int",
+        "!doc": "List에 데이터가 몇 건 있는지 세는 함수. List.size()와 동일"
+    },
+    "CheckRepeat": {
+        "!type": "fn(?: List, value: string, count: int) -> double",
+        "!doc": "입력받은 리스트 데이터가 0번 인덱스부터 Count 수 만큼 Value와 같은 값인지 확인하는 함수."
+    },
+
+    "GetThing": {
+        "!type": "fn(ThingId: string) -> Thing",
+        "!doc": "주어진 thing id로 해당 thing의 최신 상태값을 갖는 Thing 객체를 반환한다."
+    },
+    "GetMyThings": {
+        "!type": "fn() -> List",
+        "!doc": "메시지를 발생시킨 thing의 실 사용자가 소유 또는 사용하는 모든 thing 목록을 반환한다."
+    },
+    "GetMyThingsByModel": {
+        "!type": "fn(ModelTypeName: string) -> List",
+        "!doc": "메시지를 발생시킨 thing의 실 사용자가 소유 또는 사용하는 thing 목록 중 특정 모델 타입에 해당하는 것들 만을 반환한다."
+    },
+    "FindMyThings": {
+        "!type": "fn(ModelTypeName: string, AttrName: string, AttrValue: string) -> List",
+        "!doc": "메시지를 발생시킨 thing의 실 사용자가 소유 또는 사용하는 특정 모델 타입의 thing 중 특정 속성의 값을 기준으로 검색, 반환한다."
+    },
+
+    "Thing": {
+        "getThingId": {
+            "!type": "fn() -> string",
+            "!doc": "Thing의 Id를 반환한다."
+        },
+        "getAttributeMap": {
+            "!type": "fn() -> Map",
+            "!doc": "Thing의 의 속성을 Map<key: String, value: String> 으로 반환한다."
+        },
+        "getThingModelId": {
+            "!type": "fn() -> string",
+            "!doc": "Thing의 Id를 반환한다."
+        },
+        "getThingModelTypeName": {
+            "!type": "fn() -> string",
+            "!doc": "Thing의 Model Name을 반환한다."
+        },
+        "get": {
+            "!type": "fn(key: string) -> string",
+            "!doc": "key(Thing의 Attribute)의 Value를 반환한다."
+        },
+        "getThingHistList": {
+            "!type": "fn(attributeName : string, period : int , timeUnit : string) -> List",
+            "!doc": "최근 일정기간동안 발생한 Thing의 Attribute Nick Name(들어오는 메시지의 meta 정보에서 Nickname에 해당하는 값)의 Value List를 반환한다."
+        },
+        "getThingHistList": {
+            "!type": "fn(attributeName: string, count: int) -> List",
+            "!doc": "최근 갯수만큼 발생한 Thing의 Attribute Nick Name(들어오는 메시지의 meta 정보에서 Nickname에 해당하는 값)의 Value List를 반환한다."
+        }
+    },
+
+    "NotifyMessage": {
+        "!type": "fn(userMessageCode: string, thingId: ?) -> Map",
+        "!doc": "Notify Action 을 위한 메시지 객체"
+    },
+    "Notify": {
+        "!type": "fn(obj: NotifyMessage)",
+        "!doc": "OSS나 SMS서버 기타 다른 서버에 데이터 전송용"
+    },
+    "PushMessage": {
+        "!type": "fn(userMessageCode: string, thingId: ?) -> Map",
+        "!doc": "Push Action을 위한 메시지 객체"
+    },
+    "Push": {
+        "!type": "fn(obj: PushMessage)",
+        "!doc": "Mobile 기기에 Notification"
+    },
+    "ControlMessage": {
+        "!type": "fn(userMessageCode: string, thingId: ?) -> Map",
+        "!doc": "Control Action을 위한 객체"
+    },
+    "Control": {
+        "!type": "fn(obj: ControlMessage)",
+        "!doc": "Thing에 데이터 제어 명령 전송"
+    },
+
+    "PushErrorMessage": {
+        "!type": "fn(url: string, grade: string)",
+        "!doc": "Spider의 장애설정 함수"
+    },
+
+    "Map": {
+        "!type": "fn() -> Map",
+        "clear": {
+            "!type": "fn()",
+            "!doc": "Removes all of the mappings from this map."
+        },
+        "clone": {
+            "!type": "fn() -> Map",
+            "!doc": "Returns a shallow copy of this HashMap instance: the keys and values themselves are not cloned."
+        },
+        "containsKey": {
+            "!type": "fn(key: obj) -> boolean",
+            "!doc": "Returns true if this map contains a mapping for the specified key."
+        },
+        "containsValue": {
+            "!type": "fn(value: obj) -> boolean",
+            "!doc": "Returns true if this map maps one or more keys to the specified value."
+        },
+        "entrySet": {
+            "!type": "fn() -> ?",
+            "!doc": "Returns a Set view of the mappings contained in this map."
+        },
+        "get": {
+            "!type": "fn(key: obj) -> ?",
+            "!doc": "Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key."
+        },
+        "isEmpty": {
+            "!type": "fn() -> boolean",
+            "!doc": "Returns true if this map contains no key-value mappings."
+        },
+        "keySet": {
+            "!type": "fn() -> ?",
+            "!doc": "Returns a Set view of the keys contained in this map."
+        },
+        "put": {
+            "!type": "fn(key: ?, value: ?) -> ?",
+            "!doc": "Associates the specified value with the specified key in this map."
+        },
+        "putAll": {
+            "!type": "fn(Map)",
+            "!doc": "Copies all of the mappings from the specified map to this map."
+        },
+        "remove": {
+            "!type": "fn(key: obj) -> ?",
+            "!doc": "Removes the mapping for the specified key from this map if present."
+        },
+        "size": {
+            "!type": "fn() -> int",
+            "!doc": "Returns the number of key-value mappings in this map."
+        },
+        "values": {
+            "!type": "fn() -> ?",
+            "!doc": "Returns a Collection view of the values contained in this map."
+        }
+
+    },
+    "List": {
+        "!type": "fn() -> List",
+        "add": {
+            "!type": "fn(args: ?)",
+            "!doc": "Appends the specified element to the end of this list."
+        },
+        "addAll": {
+            "!type": "fn()",
+            "!doc": "Appends all of the elements in the specified collection to the end of this list, in the order that they are returned by the specified collection's Iterator."
+        },
+        "clear": {
+            "!type": "fn()",
+            "!doc": "Removes all of the elements from this list."
+        },
+        "clone": {
+            "!type": "fn() -> !1",
+            "!doc": "Returns a shallow copy of this ArrayList instance."
+        },
+        "contains": {
+            "!type": "fn(obj: ?) -> boolean",
+            "!doc": "Returns true if this list contains the specified element."
+        },
+        "ensureCapacity": {
+            "!type": "fn(minCapacity: int)",
+            "!doc": "Increases the capacity of this ArrayList instance, if necessary, to ensure that it can hold at least the number of elements specified by the minimum capacity argument."
+        },
+        "get": {
+            "!type": "fn(index: int) -> List",
+            "!doc": "Returns the element at the specified position in this list."
+        },
+        "indexOf": {
+            "!type": "fn(obj: ?) -> int",
+            "!doc": "Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element."
+        },
+        "isEmpty": {
+            "!type": "fn() -> boolean",
+            "!doc": "Returns true if this list contains no elements."
+        },
+        "iterator": {
+            "!type": "fn() -> ?",
+            "!doc": "Returns an iterator over the elements in this list in proper sequence."
+        },
+        "lastIndexOf": {
+            "!type": "fn(obj: ?) -> int",
+            "!doc": "Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element."
+        },
+        "listIterator": {
+            "!type": "fn(args: ?) -> ?",
+            "!doc": "Returns a list iterator over the elements in this list (in proper sequence)."
+        },
+        "remove": {
+            "!type": "fn(index: int) -> ?",
+            "!doc": "Removes the element at the specified position in this list."
+        },
+        "removeRange": {
+            "!type": "fn(fromIndex: int, toIndex: int)",
+            "!doc": "Removes from this list all of the elements whose index is between fromIndex, inclusive, and toIndex, exclusive."
+        },
+        "removeAll": {
+            "!type": "fn(args: ?) -> boolean",
+            "!doc": "Removes from this list all of its elements that are contained in the specified collection."
+        },
+        "retainAll": {
+            "!type": "fn(args: ?) -> boolean",
+            "!doc": "Retains only the elements in this list that are contained in the specified collection."
+        },
+        "set": {
+            "!type": "fn(index: int, elemnet: ?) -> ?",
+            "!doc": "Replaces the element at the specified position in this list with the specified element."
+        },
+        "size": {
+            "!type": "fn() -> int",
+            "!doc": "Returns the number of elements in this list."
+        },
+        "subList": {
+            "!type": "fn(fromIndex: int, toIndex: int) -> List",
+            "!doc": "Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive."
+        },
+        "toArray": {
+            "!type": "fn(?) -> ?",
+            "!doc": "Returns an array containing all of the elements in this list in proper sequence (from first to last element)."
+        },
+        "trimToSize": {
+            "!type": "fn()",
+            "!doc": "Trims the capacity of this ArrayList instance to be the list's current size."
+        }
+    },
+    "Math": {
+        "E": "double",
+        "PI": "double",
+        "abs": {
+            "!type": "fn(args: ?) -> ?",
+            "!doc": "Returns the absolute value"
+        },
+        "acos": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the arc cosine of a value"
+        },
+        "asin": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the arc sine of a value"
+        },
+        "atan": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the arc tangent of a value"
+        },
+        "atan2": {
+            "!type": "fn(y: double, x: double) -> double",
+            "!doc": "Returns the angle theta from the conversion of rectangular coordinates (x, y) to polar coordinates (r, theta)."
+        },
+        "cbrt": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the cube root of a double value."
+        },
+        "ceil": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the smallest (closest to negative infinity) double value that is greater than or equal to the argument and is equal to a mathematical integer."
+        },
+        "copySign": {
+            "!type": "fn(magnitude: ?, sign: ?) -> ?",
+            "!doc": "Returns the first floating-point argument with the sign of the second floating-point argument."
+        },
+        "cos": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the trigonometric cosine of an angle."
+        },
+        "cosh": {
+            "!type": "fn(x: double) -> double",
+            "!doc": "Returns the hyperbolic cosine of a double value."
+        },
+        "exp": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns Euler's number e raised to the power of a double value."
+        },
+        "expm1": {
+            "!type": "fn(x: double) -> double",
+            "!doc": "Returns ex -1."
+        },
+        "floor": {
+            "!type": "fn(a: double) ->double",
+            "!doc": "Returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer."
+        },
+        "getExponent": {
+            "!type": "fn(x: ?) -> int",
+            "!doc": "Returns the unbiased exponent used in the representation of a double."
+        },
+        "hypot": {
+            "!type": "fn(x: double, y: double) -> double",
+            "!doc": "Returns sqrt(x2 +y2) without intermediate overflow or underflow."
+        },
+        "IEEEremainder": {
+            "!type": "fn(f1: double, f2: double) -> double",
+            "!doc": "Computes the remainder operation on two arguments as prescribed by the IEEE 754 standard."
+        },
+        "log": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the natural logarithm (base e) of a double value."
+        },
+        "log10": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the base 10 logarithm of a double value."
+        },
+        "log1p": {
+            "!type": "fn(x: double) -> double",
+            "!doc": "Returns the natural logarithm of the sum of the argument and 1."
+        },
+        "max": {
+            "!type": "fn(a: ?, b: ?) -> ?",
+            "!doc": "Returns the greater of two values."
+        },
+        "min": {
+            "!type": "fn(a: ?, b: ?) -> ?",
+            "!doc": "Returns the smaller of two values."
+        },
+        "nextAfter": {
+            "!type": "fn(start: ?, directon: ?) -> ?",
+            "!doc": "Returns the floating-point number adjacent to the first argument in the direction of the second argument."
+        },
+        "nextUp": {
+            "!type": "fn(x: ?) -> ?",
+            "!doc": "Returns the floating-point value adjacent to d in the direction of positive infinity."
+        },
+        "pow": {
+            "!type": "fn(a: double, b: double) -> double",
+            "!doc": "Returns the value of the first argument raised to the power of the second argument."
+        },
+        "random": {
+            "!type": "fn() -> double",
+            "!doc": "Returns a double value with a positive sign, greater than or equal to 0.0 and less than 1.0."
+        },
+        "rint": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the double value that is closest in value to the argument and is equal to a mathematical integer."
+        },
+        "round": {
+            "!type": "fn(a: double) -> long",
+            "!doc": "Returns the closest long to the argument, with ties rounding up."
+        },
+        "scalb": {
+            "!type": "fn(d: ?, scaleFactor: int) -> ?",
+            "!doc": "Return d × 2scaleFactor rounded as if performed by a single correctly rounded floating-point multiply to a member of the double value set."
+        },
+        "signum": {
+            "!type": "fn(x: ?) -> ?",
+            "!doc": "Returns the signum function of the argument; zero if the argument is zero, 1.0 if the argument is greater than zero, -1.0 if the argument is less than zero."
+        },
+        "sin": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the trigonometric sine of an angle."
+        },
+        "sinh": {
+            "!type": "fn(x: double) -> double",
+            "!doc": "Returns the hyperbolic sine of a double value."
+        },
+        "sqrt": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the correctly rounded positive square root of a double value."
+        },
+        "tan": {
+            "!type": "fn(a: double) -> double",
+            "!doc": "Returns the trigonometric tangent of an angle."
+        },
+        "tanh": {
+            "!type": "fn(x: double) -> double",
+            "!doc": "Returns the hyperbolic tangent of a double value."
+        },
+        "toDegrees": {
+            "!type": "fn(angrad: double) -> double",
+            "!doc": "Converts an angle measured in radians to an approximately equivalent angle measured in degrees."
+        },
+        "toRadians": {
+            "!type": "fn(angdeg: double) -> double",
+            "!doc": "Converts an angle measured in degrees to an approximately equivalent angle measured in radians."
+        },
+        "ulp": {
+            "!type": "fn(x: double) -> ?",
+            "!doc": "Returns the size of an ulp of the argument."
+        }
+    },
+    "DB": {
+        "!doc": "DB 쿼리를 위한 클래스.",
+        "select": {
+            "!type": "fn(args?: ?) -> Result"
+        },
+        "insert": {
+            "!type": "fn(args?: ?)"
+        },
+        "update": {
+            "!type": "fn(args?: ?)"
+        },
+        "delete": {
+            "!type": "fn(args?: ?)"
+        }
+    },
+    "Result": {
+        "get": {
+            "!type": "fn(rownum: int) -> Row"
+        },
+        "size": {
+            "!type": "fn() -> int"
+        }
+    },
+    "Row": {
+        "getString": {
+            "!type": "fn(args: ?) -> string"
+        },
+        "getNumber": {
+            "!type": "fn(args: ?) -> number"
+        }
+    }
+}

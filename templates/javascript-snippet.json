@@ -1,0 +1,49 @@
+{
+    "name": "javascript",
+    "context": "javascript",
+    "templates": [{
+        "name": "for",
+        "description": "iterate over array",
+        "template": "for (var ${index} = 0; ${index} < ${array}.length; ${index}++) {\n\t${line_selection}${cursor}\n}"
+    }, {
+        "name": "for",
+        "description": "iterate over array with temporary variable",
+        "template": "for (var ${index} = 0; ${index} < ${array}.length; ${index}++) {\n\tvar ${array_element} = ${array}[${index}];\n\t${cursor}\n}"
+    }, {
+        "name": "if",
+        "description": "if statement",
+        "template": "if (${condition}) {\n\t${line_selection}${cursor}\n}"
+    }, {
+        "name": "ifelse",
+        "description": "if else statement",
+        "template": "if (${condition}) {\n\t${cursor}\n} else {\n\t\n}"
+    }, {
+        "name": "elseif",
+        "description": "else if block",
+        "template": "else if (${condition}) {\n\t${cursor}\n}"
+    }, {
+        "name": "else",
+        "description": "else block",
+        "template": "else {\n\t${cursor}\n}"
+    }, {
+        "name": "function",
+        "description": "function",
+        "template": "function ${name}(${}) {\n\t${cursor}\n}"
+    }, {
+        "name": "function",
+        "description": "anonymous function",
+        "template": "function (${}) {\n\t${cursor}\n}"
+    }, {
+        "name": "new",
+        "description": "create new object",
+        "template": "var ${name} = new ${type}(${arguments});"
+    }, {
+        "name": "Logger info",
+        "description": "Logger information",
+        "template": "Logger.info(${text}${cursor})"
+    }, {
+        "name": "Logger debug",
+        "description": "Logger debug",
+        "template": "Logger.debug(${text}${cursor})"
+    }]
+}

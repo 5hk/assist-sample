@@ -1,0 +1,38 @@
+{
+    "messageCode": "MSG000000247",
+    "messageName": "data",
+    "messageDesc": "MSG-SHS-2000-BASIC상태보고",
+    "format": "application/json",
+    "meta": {
+        "nickname": "root",
+        "type": "object",
+        "name": "data",
+        "desc": "MSG-SHS-2000-BASIC상태보고",
+        "childList": [{
+            "name": "pinInfo",
+            "type": "string",
+            "desc": "핀정보",
+            "nickname": "pinInfo",
+            "path": "$.pinInfo"
+        }, {
+            "name": "authReLock",
+            "type": "boolean",
+            "desc": "자동잠금",
+            "nickname": "authReLock",
+            "path": "$.authReLock"
+        }, {
+            "name": "battery",
+            "type": "integer",
+            "desc": "전원",
+            "nickname": "battery",
+            "path": "$.battery"
+        }, {
+            "name": "locked",
+            "type": "boolean",
+            "desc": "잠금여부",
+            "nickname": "locked",
+            "path": "$.locked"
+        }],
+        "path": "$"
+    }
+}
